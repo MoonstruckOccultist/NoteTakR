@@ -16,7 +16,7 @@ if (window.location.pathname === '/notes') {
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
-if (startBtn){
+if (startBtn) {
   startBtn.addEventListener('click', (event) => {
     event.preventDefault();
     window.location.href = '/notes';
@@ -58,14 +58,15 @@ const deleteNote = (id) =>
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
-    }
+    },
   });
+
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
   hide(clearBtn);
 
-  if (activeNote) {
+  if (activeNote.id) {
     show(newNoteBtn);
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
@@ -97,17 +98,15 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target;
-  //WHAT ID????? WHERE THE FUCK ARE YOU GETTING THE ID FROM????????????????????????????
   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
 
   if (activeNote.id === noteId) {
     activeNote = {};
   }
-
   deleteNote(noteId).then(() => {
     getAndRenderNotes();
     renderActiveNote();
-  });andlenewnotev
+  });
 };
 
 // Sets the activeNote and displays it
